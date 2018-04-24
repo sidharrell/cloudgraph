@@ -11,12 +11,14 @@ with open('times.json') as json_data:
   t = json.load(json_data)
 with open('metrics.json') as json_data:
   m = json.load(json_data)
+if not os.path.exists("output"):
+  os.makedirs("output")
 for instance in d['myinstances']:
   for time in t['mytimes']:
-    if not os.path.exists(time['start']):
-      os.makedirs(time['start'])
+    if not os.path.exists('output/'+time['start']):
+      os.makedirs('output/'+time['start'])
     for metric in m['mymetrics']:
-      f = open(time['start']+'/'+instance['name']+'-'+metric['metricName'], 'w')
+      f = open('output/'+time['start']+'/'+instance['name']+'-'+metric['metricName'], 'w')
       f.write("Date,"+metric['title']+"\n")
       client = boto3.client('cloudwatch')
       responses = client.get_metric_statistics(
