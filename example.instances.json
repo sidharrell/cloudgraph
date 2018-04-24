@@ -1,0 +1,6 @@
+{
+  "myinstances": [
+    { "id": "i-17285673", "name": "My web server" },
+    { "id": "i-7s389f09", "name": "My database server" },
+  ]
+}

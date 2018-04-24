@@ -1,0 +1,26 @@
+{
+  "mymetrics": [
+    {
+      "title": "Max CPU",
+      "namespace": "AWS/EC2",
+      "metricName": "CPUUtilization",
+      "statisticValues": "Maximum",
+      "unit": "Percent",
+      "color": "af9cf4",
+      "thickness": 2,
+      "dashed": false,
+      "InstanceId": ""
+    },
+    {
+      "title": "System Status Check",
+      "namespace": "AWS/EC2",
+      "metricName": "StatusCheckFailed_System",
+      "statisticValues": "Maximum",
+      "unit": "Count",
+      "color": "af9cf4",
+      "thickness": 2,
+      "dashed": false,
+      "InstanceId": ""
+    }
+  ]
+}

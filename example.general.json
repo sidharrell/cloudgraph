@@ -1,0 +1,12 @@
+{
+  "aws": {
+    "accessKeyId": "SF9SDF9SF9GSDFGHL34E",
+    "secretAccessKey": "BDAS3R34T3RG3RG33RG3867SDF9SDAS9SDFK50wAg",
+    "region": "us-west-1"
+  },
+  "timeOffset": 43800,
+  "timePeriod": 86400,
+  "chartSamples": 60,
+  "width": 1000,
+  "height":250
+}
