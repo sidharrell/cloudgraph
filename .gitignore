@@ -2,3 +2,5 @@ instances.json
 metrics.json
 times.json
 output*
+graphs*
+node_modules*
