@@ -4,3 +4,4 @@ times.json
 output*
 graphs*
 node_modules*
+_instances.json

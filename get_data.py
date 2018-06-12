@@ -35,7 +35,7 @@ for instance in d['myinstances']:
         Period=3600,
         Statistics=[metric['statisticValues']]
       )
-#pprint(responses['Datapoints'])
+      pprint(responses['Datapoints'])
       mylist=[]
       datapoints=responses['Datapoints']
       def getKey(custom):
