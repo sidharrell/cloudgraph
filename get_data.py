@@ -18,7 +18,7 @@ for instance in d['myinstances']:
     if not os.path.exists('output/'+time['start']):
       os.makedirs('output/'+time['start'])
     for metric in m['mymetrics']:
-      f = open('output/'+time['start']+'/'+instance['name']+'-'+metric['metricName'], 'w')
+      f = open('output/'+time['start']+'/'+instance['id']+'-'+metric['metricName'], 'w')
       f.write("Date,"+metric['title']+"\n")
       client = boto3.client('cloudwatch')
       responses = client.get_metric_statistics(

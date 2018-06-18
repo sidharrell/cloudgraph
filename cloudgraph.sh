@@ -36,3 +36,5 @@ EOF
 
 cp example.metrics.json metrics.json
 python3 get_data.py
+mkdir graphs
+node runner.js
