@@ -56,3 +56,12 @@ for graphs in `find graphs -name "*.svg" | sed "s/^graphs//g" | sed "s/svg$//g"`
 do
   convert -background none -size 1024x1024 "graphs${graphs}svg" "images${graphs}png"
 done
+if [ ! -d "tarballs" ];
+then
+  mkdir tarballs
+fi
+for imagedates in `ls images`
+do
+  tar cvzf tarballs/${imagedates}.tgz images/$imagedates
+  echo "This weeks graphs from AWS" | mail -s "Cloudwatch Graphs" user@example.com -A tarballs/${imagedates}.tgz
+done
