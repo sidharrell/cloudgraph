@@ -36,5 +36,23 @@ EOF
 
 cp example.metrics.json metrics.json
 python3 get_data.py
-mkdir graphs
+if [ ! -d "graphs" ];
+then
+  mkdir graphs
+fi
 node runner.js
+if [ ! -d "images" ];
+then
+  mkdir images
+fi
+for graphdates in `ls graphs`
+do
+  if [ ! -d "images/$graphdates" ];
+  then
+    mkdir "images/$graphdates"
+  fi
+done;
+for graphs in `find graphs -name "*.svg" | sed "s/^graphs//g" | sed "s/svg$//g"`;
+do
+  convert -background none -size 1024x1024 "graphs${graphs}svg" "images${graphs}png"
+done
