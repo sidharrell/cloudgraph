@@ -19,6 +19,8 @@ for instance in d['myinstances']:
       os.makedirs('output/'+time['start'])
     for metric in m['mymetrics']:
       f = open('output/'+time['start']+'/'+instance['id']+'-'+metric['metricName'], 'w')
+      meta = open('output/'+time['start']+'/'+instance['id']+'-'+metric['metricName']+'.meta', 'w')
+      json.dump(metric, meta)
       f.write("Date,"+metric['title']+"\n")
       client = boto3.client('cloudwatch')
       responses = client.get_metric_statistics(
@@ -35,7 +37,7 @@ for instance in d['myinstances']:
         Period=3600,
         Statistics=[metric['statisticValues']]
       )
-      pprint(responses['Datapoints'])
+      #pprint(responses['Datapoints'])
       mylist=[]
       datapoints=responses['Datapoints']
       def getKey(custom):

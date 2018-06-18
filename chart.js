@@ -1,4 +1,4 @@
-exports.CreateChart = function(inputLocation, outputLocation, graphTitle) {
+exports.CreateChart = function(inputLocation, outputLocation, metaData) {
     var fs = require('fs');
     var d3 = require('d3');
     var jsdom = require('jsdom');
@@ -9,8 +9,8 @@ exports.CreateChart = function(inputLocation, outputLocation, graphTitle) {
     if (!outputLocation)
         outputLocation = 'test.svg';
 
-    if (!graphTitle)
-        graphTitle = "i-fa9159de CPUUtilization";
+    if (!metaData)
+        metaData = "test.meta";
 
   const { JSDOM } = jsdom;
   const { window } = new JSDOM();
@@ -54,13 +54,14 @@ exports.CreateChart = function(inputLocation, outputLocation, graphTitle) {
 
           // Get the data
   var rawdata = fs.readFileSync(inputLocation, 'utf8');
+  var metadata = JSON.parse(fs.readFileSync(metaData, 'utf8'));
   var data = d3.csvParse(rawdata);
-console.log(data);
+//console.log(data);
   var xlabel = data.columns[0];
   var ylabel = data.columns[1];
 
   data.forEach(function(d) {
-console.log(Object);
+//console.log(Object);
     array=Object.values(d);
     d.date = parseTime(Math.round(array[0]));
     d.close = +array[1];
@@ -69,9 +70,12 @@ console.log(Object);
   x.domain(d3.extent(data, function(d) {
     return d.date;
   }));
-  y.domain([ 0, d3.max(data, function(d) {
-    return d.close;
-  }) ]);
+  if (metadata.unit != "Percent") {
+    y.domain([ 0, d3.max(data, function(d) {
+      return d.close;
+    }) ]);
+  } else
+    y.domain([ 0, 100 ]);
 
   svg.append("path").data([ data ]).attr("class", "line")
       .attr("d", valueline);
@@ -96,7 +100,7 @@ console.log(Object);
       0 - (margin.top / 2)).attr("text-anchor", "middle")
       .style("font-size", "20px").style(
     "text-decoration", "underline").text(
-  graphTitle);
+  metadata.title);
 
   fs.writeFileSync(outputLocation, window.d3.select(
       '.container').html());

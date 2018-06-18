@@ -10,8 +10,10 @@ fs.readdir("./output", (err, folders) => {
     var datadir = "./output/"+folder;
     fs.readdir(datadir, (err, files) => {
       files.forEach(file => {
-        chart.CreateChart(datadir+"/"+file, targetdir+"/"+file+".svg", file);
-        console.log(file);
+          if (!file.endsWith("meta")) { 
+            chart.CreateChart(datadir+"/"+file, targetdir+"/"+file+".svg", datadir+"/"+file+".meta");
+            //console.log(file);
+          }
       });
     });
   });

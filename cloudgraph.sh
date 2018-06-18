@@ -12,14 +12,14 @@ EOF
 
 aws ec2 describe-instances > _instances.json
 instances=( `jq -r '.Reservations | .[] | .Instances | .[] | .InstanceId' _instances.json` )
-echo ${instances[@]}
+#echo ${instances[@]}
 
 tee 'instances.json' > /dev/null <<EOF
 {
   "myinstances": [
 EOF
 last=$(expr "${#instances[@]}" - 1)
-echo $last
+#echo $last
 for ((i=0; i < "${#instances[@]}"; i++))
 do
   if [ $i -eq "$last" ]; then
