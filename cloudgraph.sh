@@ -94,10 +94,18 @@ for graphs in `find graphs -name "*.svg" | sed "s/^graphs//g" | sed "s/svg$//g"`
 do
   convert -background none -size 1024x1024 "graphs${graphs}svg" "images${graphs}png"
 done
+
+# create the tarballs folder, or empty it out
+#
 if [ ! -d "tarballs" ];
 then
   mkdir tarballs
+else
+  rm -rf tarballs/*
 fi
+
+# create the tarball of the png files and email them off the server
+#
 for imagedates in `ls images`
 do
   tar cvzf tarballs/${imagedates}.tgz images/$imagedates
