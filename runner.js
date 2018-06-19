@@ -1,6 +1,8 @@
+// wrapper for the more generic charting script to handle our use case
 var chart = require('./chart.js');
 const fs = require('fs');
 
+// for everything that is found in the 'output' folder, process it through the charting script
 fs.readdir("./output", (err, folders) => {
   folders.forEach(folder => {
     var targetdir = "./graphs/"+folder;
