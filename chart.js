@@ -1,8 +1,14 @@
+// export the CreateChart function w/ 3 parameters
+//
 exports.CreateChart = function(inputLocation, outputLocation, metaData) {
+
+// Prerequisites
+// run 'npm install' in the root folder.
     var fs = require('fs');
     var d3 = require('d3');
     var jsdom = require('jsdom');
 
+// provide defaults
     if (!inputLocation)
         inputLocation = 'test.csv';
 
@@ -12,11 +18,13 @@ exports.CreateChart = function(inputLocation, outputLocation, metaData) {
     if (!metaData)
         metaData = "test.meta";
 
+// load jsdom w/ the handle window.d3 on it.
   const { JSDOM } = jsdom;
   const { window } = new JSDOM();
   const { document } = (new JSDOM('')).window;
   global.document = document;
   window.d3 = d3.select(global.document);
+
   // set the dimensions and margins of the graph
   var margin = {
     top : 40,
@@ -27,10 +35,10 @@ exports.CreateChart = function(inputLocation, outputLocation, metaData) {
     - margin.top - margin.bottom;
   var cssText = ".line {  fill: none;  stroke: steelblue;  stroke-width: 2px; }";
 
-  // parse the date / time
+  // get a handle on d3's timeParse function for parsing the date / time
   var parseTime = d3.timeParse("%s");
 
-  // set the ranges
+  // get handles for functions for setting the ranges
   var x = d3.scaleTime().range([ 0, width ]);
   var y = d3.scaleLinear().range([ height, 0 ]);
 
@@ -52,24 +60,29 @@ exports.CreateChart = function(inputLocation, outputLocation, metaData) {
                       + margin.top + ")");
   svg.append("style").attr("type", "text/css").text(cssText);
 
-          // Get the data
+// Get the data
   var rawdata = fs.readFileSync(inputLocation, 'utf8');
   var metadata = JSON.parse(fs.readFileSync(metaData, 'utf8'));
   var data = d3.csvParse(rawdata);
-//console.log(data);
+
+// pull the x and y labels from the column headers in the csv
   var xlabel = data.columns[0];
   var ylabel = data.columns[1];
 
+
+// parse the raw data into an array of key-value pairs of objects
   data.forEach(function(d) {
-//console.log(Object);
     array=Object.values(d);
     d.date = parseTime(Math.round(array[0]));
     d.close = +array[1];
   });
 
+// define the range of values on the x axis
   x.domain(d3.extent(data, function(d) {
     return d.date;
   }));
+
+// define the range of values on the y axis
   if (metadata.unit != "Percent") {
     y.domain([ 0, d3.max(data, function(d) {
       return d.close;
@@ -77,17 +90,20 @@ exports.CreateChart = function(inputLocation, outputLocation, metaData) {
   } else
     y.domain([ 0, 100 ]);
 
+// draw the line
   svg.append("path").data([ data ]).attr("class", "line")
       .attr("d", valueline);
-  // Add the X Axis
+
+// Add the X Axis
   svg.append("g").attr("transform",
       "translate(0," + height + ")").call(
       d3.axisBottom(x));
-  // text label for the x axis
+
+// text label for the x axis
   svg.append("text").attr("x", 480).attr("y", 475).style(
       "text-anchor", "middle").text(xlabel);
 
-  // Add the Y Axis
+// Add the Y Axis
   svg.append("g").call(d3.axisLeft(y));
 
   svg.append("text").attr("transform", "rotate(-90)").attr(
@@ -95,13 +111,14 @@ exports.CreateChart = function(inputLocation, outputLocation, metaData) {
       .attr("dy", "1em").style("text-anchor", "middle")
       .text(ylabel);
 
-  // add a title
+// add a title
   svg.append("text").attr("x", (width / 2)).attr("y",
       0 - (margin.top / 2)).attr("text-anchor", "middle")
       .style("font-size", "20px").style(
     "text-decoration", "underline").text(
   metadata.title);
 
+// write out to the file
   fs.writeFileSync(outputLocation, window.d3.select(
       '.container').html());
 }
