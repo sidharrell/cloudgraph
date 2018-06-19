@@ -5,22 +5,70 @@
       "namespace": "AWS/EC2",
       "metricName": "CPUUtilization",
       "statisticValues": "Maximum",
-      "unit": "Percent",
-      "color": "af9cf4",
-      "thickness": 2,
-      "dashed": false,
-      "InstanceId": ""
+      "unit": "Percent"
     },
     {
       "title": "System Status Check",
       "namespace": "AWS/EC2",
       "metricName": "StatusCheckFailed_System",
       "statisticValues": "Maximum",
-      "unit": "Count",
-      "color": "af9cf4",
-      "thickness": 2,
-      "dashed": false,
-      "InstanceId": ""
+      "unit": "Count"
+    },
+    {
+      "title": "DiskReadBytes",
+      "namespace": "AWS/EC2",
+      "metricName": "DiskReadBytes",
+      "statisticValues": "Maximum",
+      "unit": "Count"
+    },
+    {
+      "title": "DiskReadOps",
+      "namespace": "AWS/EC2",
+      "metricName": "DiskReadOps",
+      "statisticValues": "Maximum",
+      "unit": "Count"
+    },
+    {
+      "title": "DiskWriteBytes",
+      "namespace": "AWS/EC2",
+      "metricName": "DiskWriteBytes",
+      "statisticValues": "Maximum",
+      "unit": "Count"
+    },
+    {
+      "title": "DiskWriteOps",
+      "namespace": "AWS/EC2",
+      "metricName": "DiskWriteOps",
+      "statisticValues": "Maximum",
+      "unit": "Count"
+    },
+    {
+      "title": "NetworkIn",
+      "namespace": "AWS/EC2",
+      "metricName": "NetworkIn",
+      "statisticValues": "Maximum",
+      "unit": "Count"
+    },
+    {
+      "title": "NetworkOut",
+      "namespace": "AWS/EC2",
+      "metricName": "NetworkOut",
+      "statisticValues": "Maximum",
+      "unit": "Count"
+    },
+    {
+      "title": "NetworkPacketsIn",
+      "namespace": "AWS/EC2",
+      "metricName": "NetworkPacketsIn",
+      "statisticValues": "Maximum",
+      "unit": "Count"
+    },
+    {
+      "title": "NetworkPacketsOut",
+      "namespace": "AWS/EC2",
+      "metricName": "NetworkPacketsOut",
+      "statisticValues": "Maximum",
+      "unit": "Count"
     }
   ]
 }
