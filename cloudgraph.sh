@@ -111,3 +111,10 @@ do
   tar cvzf tarballs/${imagedates}.tgz images/$imagedates
   echo "This weeks graphs from AWS" | mail -s "Cloudwatch Graphs" user@example.com -A tarballs/${imagedates}.tgz
 done
+
+# clean up
+#
+rm -r tarballs/
+rm -r output/
+rm -r images/
+rm -r graphs/
